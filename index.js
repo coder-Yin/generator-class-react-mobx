@@ -32,6 +32,11 @@ module.exports = class extends Generator {
             name: 'name',
             message: '页面/组件的名称',
             default: 'aName' // Default to current folder name
+        }, {
+            type: 'input',
+            name: 'store',
+            message: 'store的名称',
+            default: 'stroName' // Default to current folder name
         }]).then(function (res) {
             console.log('res：', res)
             self.userAnswers = res;
@@ -42,19 +47,48 @@ module.exports = class extends Generator {
 
     writing() {
         console.log('-------------4:', this.userAnswers);
-        const { type, name } = this.userAnswers;
+        const { type, name, store } = this.userAnswers;
         let templatePath = '';
         if (type == 'page') {
-            templatePath = './page';
+            this.fs.copyTpl(
+                this.templatePath('./page/stores/index.js'),
+                this.destinationPath('./' + name+'/stores/index.js'),
+                { 
+                    name: name,
+                    store: store,
+                    storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
+                }
+            );
+            this.fs.copyTpl(
+                this.templatePath('./page/stores/storeName.js'),
+                this.destinationPath('./' + name+'/stores/'+store+'.js'),
+                { 
+                    name: name,
+                    store: store,
+                    storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
+                }
+            );
+            this.fs.copyTpl(
+                this.templatePath('./page/components/'),
+                this.destinationPath('./' + name+'/components/'),
+                { 
+                    name: name,
+                    store: store,
+                    storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
+                }
+            );
         } else {
             templatePath = './component';
+            this.fs.copyTpl(
+                this.templatePath(templatePath),
+                this.destinationPath('./' + name),
+                { 
+                    name: name,
+                    store: store,
+                    storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
+                }
+            );
         }
-
-        this.fs.copyTpl(
-            this.templatePath(templatePath),
-            this.destinationPath('./' + name),
-            { title: name }
-        );
 
     }
 
