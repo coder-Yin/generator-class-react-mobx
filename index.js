@@ -77,6 +77,15 @@ module.exports = class extends Generator {
                     storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
                 }
             );
+            this.fs.copyTpl(
+                this.templatePath('./page/js/'),
+                this.destinationPath('./' + name+'/js/'),
+                { 
+                    name: name,
+                    store: store,
+                    storeUpperCase: store.slice(0, 1).toLocaleUpperCase()+store.slice(1)
+                }
+            );
         } else {
             templatePath = './component';
             this.fs.copyTpl(
