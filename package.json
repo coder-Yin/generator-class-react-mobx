@@ -1,6 +1,6 @@
 {
   "name": "generator-class-react-mobx",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "yoman",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,9 @@
     "yeoman-generator"
   ],
   "author": "yinxiaofei",
-  "repository": { 
-    "type": "git", 
-    "url": "git@github.com:coder-Yin/generator-class-react-mobx.git" 
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:coder-Yin/generator-class-react-mobx.git"
   },
   "license": "ISC",
   "dependencies": {
